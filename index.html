@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Light Game</title>
+    <style>
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(5, 50px);
+        gap: 5px;
+      }
+
+      .cell {
+        width: 50px;
+        height: 50px;
+        background-color: #eee;
+        border: 1px solid #ccc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 24px;
+      }
+
+      .cell:hover {
+        background-color: #747474;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="grid" class="grid"></div>
+    <button onclick="resetGame()">Reset</button>
+    <script src="script.js"></script>
+  </body>
+</html>
