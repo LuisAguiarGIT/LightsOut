@@ -17,7 +17,7 @@ function toggleLights(row, col) {
 
   toggleCell(row, col);
   toggleAdjacent(row, col);
-  console.log(grid, row, col);
+  // console.log(grid, row, col);
 
   // Check for win condition
   if (checkWin()) {
@@ -61,7 +61,7 @@ function toggleAdjacent(row, col) {
 function toggleCell(row, col) {
   const cell = document.getElementById(`cell-${row}-${col}`);
   const isSelected = grid[row][col];
-  cell.style.backgroundColor = isSelected ? 'black' : '#eee';
+  cell.style.backgroundColor = isSelected ? 'transparent' : '#eee';
 }
 
 // Check if all lights are turned off
