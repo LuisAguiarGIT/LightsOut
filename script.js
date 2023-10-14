@@ -100,7 +100,7 @@ function randomBinary() {
  * @param {Array<Array<boolean>>} grid
  * @returns fully randomized grid and updates its appearance
  */
-function toggleInitialGrid(grid) {
+function randomizeGrid(grid) {
   for (let i = 0; i < gridSize; i++) {
     for (let j = 0; j < gridSize; j++) {
       if (randomBinary()) {
