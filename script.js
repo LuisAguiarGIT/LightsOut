@@ -130,7 +130,7 @@ function chaseTheLights(cpuMove, grid, gridSize) {
     if (cpuMove.row === gridSize) {
       console.log("I'm done!");
       cpu.resetMove();
-      clearInterval(chaseLightsInterval);
+      stopChasingLights(chaseLightsInterval);
     }
 
     if (cpuMove.col === gridSize) {
@@ -143,8 +143,8 @@ function chaseTheLights(cpuMove, grid, gridSize) {
     }
 
     cpuMove.col++;
-  } catch (e) {
-    console.log(e, grid, cpu);
+  } catch (ex) {
+    console.log(ex, grid, cpu);
   }
 }
 
