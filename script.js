@@ -1,3 +1,13 @@
+const cpu = {
+  move: {
+    row: 1,
+    col: 0,
+  },
+  resetMove: function () {
+    this.move.row = 1;
+    this.move.col = 0;
+  },
+};
 const gridSize = 5; // Change this to adjust the grid size
 let grid = [];
 const gridElement = document.getElementById('grid');
@@ -8,7 +18,7 @@ function initializeGrid() {
     .fill()
     .map(() => Array(gridSize).fill(false));
   renderGrid();
-  toggleInitialGrid(grid);
+  randomizeGrid(grid);
 }
 
 // Toggle the lights and update the display
@@ -17,20 +27,12 @@ function toggleLights(row, col) {
 
   toggleCell(row, col);
   toggleAdjacent(row, col);
-  // console.log(grid, row, col);
 
   // Check for win condition
   if (checkWin()) {
     alert('You win!');
   }
 }
-
-//=====================================================================
-// Calculate best move
-// Idea is to calculate how many points I could get for every position
-// So.. for now just make a function that calculates how many points
-// I could get for selecting a certain position
-//=====================================================================
 
 /**
  *
@@ -116,5 +118,48 @@ function resetGame() {
   initializeGrid();
 }
 
+/**
+ *
+ * @param {Object} cpuMove
+ * @param {Array<Array<boolean>>} grid
+ * @param {Number} gridSize
+ * @description Employs the chase the lights strategy
+ */
+function chaseTheLights(cpuMove, grid, gridSize) {
+  try {
+    if (cpuMove.row === gridSize) {
+      console.log("I'm done!");
+      cpu.resetMove();
+      clearInterval(chaseLightsInterval);
+    }
+
+    if (cpuMove.col === gridSize) {
+      cpuMove.row++;
+      cpuMove.col = 0;
+    }
+
+    if (grid[cpuMove.row - 1][cpuMove.col]) {
+      toggleLights(cpuMove.row, cpuMove.col);
+    }
+
+    cpuMove.col++;
+  } catch (e) {
+    console.log(e, grid, cpu);
+  }
+}
+
 // Initialize the game on page load
 initializeGrid();
+
+let chaseLightsInterval;
+
+// Start chasing lights
+chaseLightsInterval = setInterval(
+  () => chaseTheLights(cpu.move, grid, gridSize),
+  1000
+);
+
+// Clear the interval when the game is won or reset
+function stopChasingLights() {
+  clearInterval(chaseLightsInterval);
+}
