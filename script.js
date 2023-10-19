@@ -146,10 +146,12 @@ function chaseTheLights(cpuMove, grid, gridSize) {
       } else {
         console.log(stateAfterChase, 'nooo');
       }
-    } else if (cpuMove.col === gridSize) {
+    }
+    if (cpuMove.col === gridSize) {
       cpuMove.row++;
       cpuMove.col = 0;
-    } else if (grid[cpuMove.row - 1][cpuMove.col]) {
+    }
+    if (grid[cpuMove.row - 1][cpuMove.col]) {
       // if (cpuMove.row === 5) return;
       toggleLights(cpuMove.row, cpuMove.col);
     }
