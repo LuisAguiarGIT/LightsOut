@@ -156,7 +156,7 @@ let chaseLightsInterval;
 // Start chasing lights
 chaseLightsInterval = setInterval(
   () => chaseTheLights(cpu.move, grid, gridSize),
-  1000
+  250
 );
 
 // Clear the interval when the game is won or reset
