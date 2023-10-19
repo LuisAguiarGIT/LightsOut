@@ -8,6 +8,15 @@ const cpu = {
     this.move.col = 0;
   },
 };
+const lookup = {
+  '[2,3,4]': [3],
+  '[1,3]': [1, 4],
+  '[1,2,4]': [0],
+  '[0,4]': [3, 4],
+  '[0,2,3]': [4],
+  '[0,1,3,4]': [2],
+  '[0,1,2]': [1],
+};
 const gridSize = 5; // Change this to adjust the grid size
 let grid = [];
 const gridElement = document.getElementById('grid');
@@ -127,18 +136,21 @@ function resetGame() {
  */
 function chaseTheLights(cpuMove, grid, gridSize) {
   try {
-    if (cpuMove.row === gridSize) {
+    if (cpuMove?.row === gridSize) {
       console.log("I'm done!");
       cpu.resetMove();
       stopChasingLights(chaseLightsInterval);
-    }
-
-    if (cpuMove.col === gridSize) {
+      const stateAfterChase = JSON.stringify(getStateAfterChasing());
+      if (lookup[stateAfterChase]) {
+        console.log(stateAfterChase, 'Lookup!');
+      } else {
+        console.log(stateAfterChase, 'nooo');
+      }
+    } else if (cpuMove.col === gridSize) {
       cpuMove.row++;
       cpuMove.col = 0;
-    }
-
-    if (grid[cpuMove.row - 1][cpuMove.col]) {
+    } else if (grid[cpuMove.row - 1][cpuMove.col]) {
+      // if (cpuMove.row === 5) return;
       toggleLights(cpuMove.row, cpuMove.col);
     }
 
@@ -146,6 +158,16 @@ function chaseTheLights(cpuMove, grid, gridSize) {
   } catch (ex) {
     console.log(ex, grid, cpu);
   }
+}
+
+function getStateAfterChasing() {
+  const state = [];
+  for (let i = 0; i < gridSize; i++) {
+    if (grid[4][i]) {
+      state.push(i);
+    }
+  }
+  return state;
 }
 
 // Initialize the game on page load
@@ -156,7 +178,7 @@ let chaseLightsInterval;
 // Start chasing lights
 chaseLightsInterval = setInterval(
   () => chaseTheLights(cpu.move, grid, gridSize),
-  1000
+  250
 );
 
 // Clear the interval when the game is won or reset
