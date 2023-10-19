@@ -152,7 +152,7 @@ function chaseTheLights(cpuMove, grid, gridSize) {
       cpuMove.col = 0;
     }
     if (grid[cpuMove.row - 1][cpuMove.col]) {
-      // if (cpuMove.row === 5) return;
+      if (cpuMove.row === 5) return;
       toggleLights(cpuMove.row, cpuMove.col);
     }
 
