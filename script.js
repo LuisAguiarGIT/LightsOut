@@ -33,6 +33,7 @@ function initializeGrid() {
   renderGrid();
   randomizeGrid(playerGrid);
   cloneMatrix();
+  renderCPUGrid();
 }
 
 // Toggle the lights and update the display
@@ -80,6 +81,12 @@ function toggleCell(grid, row, col) {
   cell.style.backgroundColor = isSelected ? 'transparent' : '#eee';
 }
 
+function toggleCPUCell(grid, row, col) {
+  const cell = document.getElementById(`cpu-cell-${row}-${col}`);
+  const isSelected = grid[row][col];
+  cell.style.backgroundColor = isSelected ? 'transparent' : '#eee';
+}
+
 // Check if all lights are turned off
 function checkWin() {
   return playerGrid.every((row) => row.every((cell) => !cell));
@@ -98,7 +105,7 @@ function renderGrid() {
       playerGridElement.appendChild(cell);
     }
   }
-  renderCPUGrid();
+  // renderCPUGrid();
 }
 
 function renderCPUGrid() {
@@ -110,7 +117,7 @@ function renderCPUGrid() {
       cell.classList.add('cell');
       cell.id = `cpu-cell-${i}-${j}`;
       cpuGridElement.appendChild(cell);
-      // if (cpuGrid[i][j]) toggleCell(cpuGrid, i, j);
+      if (cpuGrid[i][j]) toggleCPUCell(cpuGrid, i, j);
     }
   }
 }
@@ -198,15 +205,15 @@ initializeGrid();
 // let chaseLightsInterval;
 
 // Start chasing lights
-chaseLightsInterval = setInterval(
-  () => chaseTheLights(cpu.move, playerGrid, gridSize),
-  250
-);
+// chaseLightsInterval = setInterval(
+//   () => chaseTheLights(cpu.move, playerGrid, gridSize),
+//   250
+// );
 
-// Clear the interval when the game is won or reset
-function stopChasingLights() {
-  clearInterval(chaseLightsInterval);
-}
+// // Clear the interval when the game is won or reset
+// function stopChasingLights() {
+//   clearInterval(chaseLightsInterval);
+// }
 
 function cloneMatrix() {
   for (let i = 0; i < gridSize; i++) {
